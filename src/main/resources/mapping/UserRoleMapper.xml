@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.UserRoleMapper">
+
+    <select id="selectAll" resultType="com.example.pojo.po.UserPo" parameterType="java.lang.String">
+        SELECT u.userId,u.userName,u.passWord,r.roleName FROM security.user u LEFT JOIN security.role r ON u.roleId = r.roleId
+        <where>
+            <if test="userName != null and userName != ''">
+                userName Like #{userName}"%"
+            </if>
+        </where>
+    </select>
+
+    <select id="selectByUserId" resultType="com.example.pojo.po.UserPo" parameterType="java.lang.Long">
+        SELECT u.userId,u.userName,u.passWord,r.roleName FROM security.user u LEFT JOIN security.role r ON u.roleId = r.roleId WHERE u.userId = #{userId}
+    </select>
+</mapper>
